@@ -16,18 +16,18 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "posts")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Getter // crea getters
+@Setter // crea setters
+@NoArgsConstructor // crea constructor sin argumentos
+@AllArgsConstructor // crea constructor con todos los argumentos
+@Builder // crea constructores, getters, setters, etc
 public class Post {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id // indica que es la llave primaria
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // indica que se autogenera
     private Long id;
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "title", nullable = false) // indica que es una columna y no puede ser nula
     private String title;
 
     @Column(name = "content", nullable = false)
