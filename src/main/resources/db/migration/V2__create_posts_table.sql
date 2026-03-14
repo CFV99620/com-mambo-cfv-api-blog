@@ -5,10 +5,11 @@ CREATE TABLE posts (
     content TEXT NOT NULL,
     excerpt TEXT,
     cover_image VARCHAR(255),
-    status VARCHAR(20) NOT NULL,
+    status VARCHAR(20) NOT NULL, -- Enum: DRAFT, PUBLISHED, ARCHIVED
+    is_featured BOOLEAN NOT NULL DEFAULT false,
     is_active BOOLEAN NOT NULL DEFAULT true,
-    --author_id BIGINT NOT NULL,
+    author_id BIGINT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    --FOREIGN KEY (author_id) REFERENCES users(id)
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (author_id) REFERENCES users(id)
 );

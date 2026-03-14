@@ -2,12 +2,22 @@ package com.mambo.cfv.api.blog.model;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
+import java.util.Set;
+import java.util.HashSet;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import com.mambo.cfv.api.blog.model.enums.PostStatus;
+import com.mambo.cfv.api.blog.model.enums.PostCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,8 +49,24 @@ public class Post {
     @Column(name = "cover_image")
     private String coverImage;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private String status;
+    private PostStatus status;
+
+    /*
+     * @ElementCollection declarea que la coleccion de categorias se guardara en una
+     * tabla separada pero forma parte de la entidad Post
+     * 
+     * @Collection Table especifica cual es la tabla donde se guardaran las
+     * categorias y la columna que se une con la tabla posts
+     */
+    @ElementCollection(targetClass = PostCategory.class)
+    @CollectionTable(name = "post_categories", joinColumns = @JoinColumn(name = "post_id"))
+    @Enumerated(EnumType.STRING)
+    @Column(name = "category")
+    @Size(max = 4, message = "Un post no puede tener más de 4 categorías")
+    @Builder.Default
+    private Set<PostCategory> categories = new HashSet<>();
 
     @Column(name = "is_active", nullable = false)
     private boolean isActive;
