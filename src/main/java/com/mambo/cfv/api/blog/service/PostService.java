@@ -1,9 +1,11 @@
 package com.mambo.cfv.api.blog.service;
 
 import com.mambo.cfv.api.blog.model.Post;
+import com.mambo.cfv.api.blog.model.enums.PostStatus;
 import com.mambo.cfv.api.blog.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.mambo.cfv.api.blog.model.enums.PostCategory;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +25,15 @@ public class PostService {
     }
 
     public List<Post> postList() {
-        return postRepository.findAll();
+        return postRepository.findByActiveTrueAndStatus(PostStatus.PUBLISHED);
+    }
+
+    public List<Post> postListFeatured() {
+        return postRepository.findByActiveTrueAndStatusAndFeaturedTrue(PostStatus.PUBLISHED);
+    }
+
+    public List<Post> postListByCategory(String category) {
+        return postRepository.findByActiveTrueAndStatusAndCategoriesContaining(PostStatus.PUBLISHED,
+                PostCategory.valueOf(category));
     }
 }

@@ -10,11 +10,14 @@ import com.mambo.cfv.api.blog.model.enums.PostCategory;
 
 @Repository
 public interface ExternalRecommendationRepository extends JpaRepository<ExternalRecommendation, Long> {
-    
-    // Encuentra todas las recomendaciones activas que pertenezcan a cierta categoría
+
+    List<ExternalRecommendation> findByActiveTrue();
+
+    // Encuentra todas las recomendaciones activas que pertenezcan a cierta
+    // categoría
     List<ExternalRecommendation> findByCategoriesContainingAndActiveTrue(PostCategory category);
-    
+
     // Encuentra todas las recomendaciones activas destacadas (featured)
     List<ExternalRecommendation> findByFeaturedTrueAndActiveTrue();
-    
+
 }

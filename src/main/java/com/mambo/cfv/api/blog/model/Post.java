@@ -68,8 +68,18 @@ public class Post {
     @Builder.Default
     private Set<PostCategory> categories = new HashSet<>();
 
+    /*
+     * recordar que lombok, por convención para variables booleanas, dice que su
+     * "getter" debe empezar con "is". Por ejemplo, si la variable se llama
+     * featured, el método para obtener su valor será isFeatured(). si nombramos la
+     * variable isFeatured, el getter será isIsFeatured() lo cual puede ocacionar
+     * conflictos con el mapper
+     */
+    @Column(name = "is_featured", nullable = false)
+    private boolean featured;
+
     @Column(name = "is_active", nullable = false)
-    private boolean isActive;
+    private boolean active;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;

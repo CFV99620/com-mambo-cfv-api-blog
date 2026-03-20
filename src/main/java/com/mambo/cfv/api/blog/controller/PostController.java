@@ -36,6 +36,18 @@ public class PostController {
         return postService.postList();
     }
 
+    @GetMapping("/list/featured")
+    public List<Post> allPostFeatured() {
+        log.info("[PostController] Buscando todos los posts destacados");
+        return postService.postListFeatured();
+    }
+
+    @GetMapping("/list/category/{category}")
+    public List<Post> allPostByCategory(@PathVariable("category") String category) {
+        log.info("[PostController] Buscando todos los posts de la categoría: {}", category);
+        return postService.postListByCategory(category);
+    }
+
     @PostMapping("/save")
     public Post savePost(@RequestBody Post post) {
         log.info("[PostController] Guardando post: {}", post.getTitle());

@@ -1,8 +1,12 @@
 package com.mambo.cfv.api.blog.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.mambo.cfv.api.blog.model.Post;
+import com.mambo.cfv.api.blog.model.enums.PostCategory;
+import com.mambo.cfv.api.blog.model.enums.PostStatus;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
@@ -18,5 +22,11 @@ public interface PostRepository extends JpaRepository<Post, Long> {
      * Methods)
      * Ejemplo: Optional<Post> findBySlug(String slug);
      */
+
+    List<Post> findByActiveTrueAndStatus(PostStatus status);
+
+    List<Post> findByActiveTrueAndStatusAndFeaturedTrue(PostStatus status);
+
+    List<Post> findByActiveTrueAndStatusAndCategoriesContaining(PostStatus status, PostCategory category);
 
 }
